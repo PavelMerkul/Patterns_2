@@ -47,14 +47,14 @@ public class DataGenerator {
         private Registration() {
         }
 
-        public static RegistrationDto getUser (String status) {
+        public static RegistrationDto getUser(String status) {
             return new RegistrationDto(getRandomLogin(), getRandomPassword(), status);
         }
 
-        public static RegistrationDto getRegisteredUser (String status) {
-            var registeredUser  = getUser (status);
-            sendRequest(registeredUser );
-            return registeredUser ;
+        public static RegistrationDto getRegisteredUser(String status) {
+            var registeredUser = getUser(status);
+            sendRequest(registeredUser);
+            return registeredUser;
         }
     }
 
@@ -66,7 +66,7 @@ public class DataGenerator {
     }
 
     // Метод для удаления пользователя (предполагается, что API поддерживает это)
-    public static void deleteUser (RegistrationDto user) {
+    public static void deleteUser(RegistrationDto user) {
         given()
                 .spec(requestSpec)
                 .body(user)
@@ -75,4 +75,4 @@ public class DataGenerator {
                 .then()
                 .statusCode(200);
     }
-   }
+}
