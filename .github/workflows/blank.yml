@@ -1,29 +1,17 @@
-name: Java CI with Gradle
+image: Ubuntu  # образ для сборки
 
-on: [push, pull_request]
+stack: jdk 11  # версия JDK
 
-jobs:
-  build:
+branches:
+  only:
+    - main  # ветка git
 
-    runs-on: ubuntu-latest
+build: off  # будем использовать свой скрипт сборки
 
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 11
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
-          distribution: 'adopt'
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-      - name: Start SUT
-        # Запускаем SUT,
-        # имя файла SUT будет отличаться в каждой задаче.
-        # & означает, что в фоновом режиме не блокируем терминал для запуска тестов,
-        # обязательно должен быть для запуска SUT в CI
-        run: java -jar ./artifacts/app-ibank.jar -P:profile=test &
-      - name: Build with Gradle
-        # Запускаем автотесты
-        # Для проектов на базе Selenide необходимо добавить параметр для запуска браузера
-        # в headless режиме -Dselenide.headless=true, параметр --info должен остаться
-        run: ./gradlew test --info -Dselenide.headless=true
+install:
+  # запускаем SUT (& означает, что в фоновом режиме не блокируем терминал для запуска тестов)
+  - java -jar ./artifacts/app-ibank.jar -P:profile=test &
+
+build_script:
+  - chmod +x gradlew
+  - ./gradlew test --info -Dselenide.headless=true
