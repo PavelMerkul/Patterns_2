@@ -7,10 +7,10 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import lombok.Value;
 
-
 import java.util.Locale;
 
 import static io.restassured.RestAssured.given;
+
 
 public class DataGenerator {
     private static final RequestSpecification requestSpec = new RequestSpecBuilder()
@@ -36,29 +36,25 @@ public class DataGenerator {
     }
 
     public static String getRandomLogin() {
-        String login = faker.name().username();
-        return login;
+        return faker.name().username();
     }
 
     public static String getRandomPassword() {
-        String password = faker.internet().password();
-        return password;
+        return faker.internet().password();
     }
 
     public static class Registration {
         private Registration() {
         }
 
-        public static RegistrationDto getUser(String status) {
-            var user = new RegistrationDto(getRandomLogin(), getRandomPassword(), status);
-            return user;
+        public static RegistrationDto getUser (String status) {
+            return new RegistrationDto(getRandomLogin(), getRandomPassword(), status);
         }
 
-
-        public static RegistrationDto getRegisteredUser(String status) {
-            var registeredUser = getUser(status);
-            sendRequest(registeredUser);
-            return registeredUser;
+        public static RegistrationDto getRegisteredUser (String status) {
+            var registeredUser  = getUser (status);
+            sendRequest(registeredUser );
+            return registeredUser ;
         }
     }
 
@@ -68,4 +64,15 @@ public class DataGenerator {
         String password;
         String status;
     }
-}
+
+    // Метод для удаления пользователя (предполагается, что API поддерживает это)
+    public static void deleteUser (RegistrationDto user) {
+        given()
+                .spec(requestSpec)
+                .body(user)
+                .when()
+                .delete("/api/system/users")
+                .then()
+                .statusCode(200);
+    }
+   }
