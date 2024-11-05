@@ -20,8 +20,8 @@ dependencies {
     testImplementation 'com.github.javafaker:javafaker:1.0.2'
     testImplementation 'io.rest-assured:rest-assured:5.3.1'
     testRuntimeOnly 'org.slf4j:slf4j-simple:2.0.3'
-    testCompileOnly 'org.projectlombok:lombok:1.18.24'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+    //testCompileOnly 'org.projectlombok:lombok:1.18.24'
+    //testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
     testImplementation 'com.google.code.gson:gson:2.8.9'
 }
 

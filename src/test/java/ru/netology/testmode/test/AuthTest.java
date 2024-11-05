@@ -25,13 +25,6 @@ class AuthTest {
         open("http://localhost:9999");
     }
 
-    @AfterEach
-    void tearDown() {
-        if (registeredUser != null) {
-            DataGenerator.deleteUser(registeredUser);
-        }
-    }
-
     @Test
     @DisplayName("Should successfully login with active registered user")
     void shouldSuccessfulLoginIfRegisteredActiveUser() {
